@@ -1,3 +1,5 @@
+package practice;
+
 public class E {
     public static void main(String[] args) {
         int[] a = {7,2,5,9,6,4,8};

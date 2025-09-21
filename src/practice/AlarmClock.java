@@ -1,3 +1,5 @@
+package practice;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +27,7 @@ public class AlarmClock implements Runnable {
                 Thread.sleep(1000);
 
                 LocalTime now = LocalTime.now();
+                System.out.println(now);
 
                 System.out.printf("\r%02d:%02d:%02d",
                         now.getHour(),

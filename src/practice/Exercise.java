@@ -1,3 +1,5 @@
+package practice;
+
 public class Exercise {
     public static void main(String[] args) {
         int[] a ={9,7,5,2,14,3};

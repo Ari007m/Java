@@ -1,3 +1,5 @@
+package practice;
+
 public class CreatePattern {
     public static void main(String[] args) {
         int a =7;

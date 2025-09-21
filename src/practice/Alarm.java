@@ -1,3 +1,5 @@
+package practice;
+
 import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +14,7 @@ public class Alarm {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalTime alarmTime = null;
 
-        String path ="src/MATUSHKA PHONK.wav";
+        String path ="src/practice/MATUSHKA PHONK.wav";
 
         while (alarmTime == null){
             try {
