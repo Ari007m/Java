@@ -1,4 +1,4 @@
-package threadIntro;
+package thread_intro;
 
 class Counter extends Thread{
     private int count;

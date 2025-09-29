@@ -1,4 +1,4 @@
-package threadIntro;
+package thread_intro;
 
 public class MultiThreadUsingRunnable {
     public static void main(String[] args) throws InterruptedException {

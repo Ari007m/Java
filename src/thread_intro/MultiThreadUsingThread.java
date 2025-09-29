@@ -1,4 +1,4 @@
-package threadIntro;
+package thread_intro;
 
 class Hii extends Thread{
 
