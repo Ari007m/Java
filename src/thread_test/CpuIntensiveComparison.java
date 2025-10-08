@@ -1,7 +1,8 @@
 package thread_test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
-import java.util.stream.IntStream;
 
 public class CpuIntensiveComparison {
 
@@ -13,7 +14,7 @@ public class CpuIntensiveComparison {
     // Optimal platform pool size: number of cores (or slightly more)
     private static final int PLATFORM_POOL_SIZE = Runtime.getRuntime().availableProcessors();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         System.out.println("Starting CPU-Intensive Task Comparison Test 🧑‍💻");
         System.out.println("Total Tasks: " + NUMBER_OF_TASKS + " | Iterations per Task: " + CPU_ITERATIONS);
         System.out.println("Optimal Platform Pool Size (Cores): " + PLATFORM_POOL_SIZE);
@@ -41,13 +42,15 @@ public class CpuIntensiveComparison {
      */
     private static long runWithPlatformThreads() throws InterruptedException, ExecutionException {
         long startTime = System.currentTimeMillis();
-        Future<Long> result = null;
+        // CHANGED: Use a List to store all 2000 Future objects instead of a single variable
+        List<Future<Long>> futures = new ArrayList<>();
 
         try (ExecutorService executor = Executors.newFixedThreadPool(PLATFORM_POOL_SIZE)) {
             System.out.println("Running with OPTIMIZED Platform Threads...");
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
-               result = executor.submit(CpuIntensiveComparison::performCpuTask);
+                // CHANGED: Add the Future for *each* submitted task to the list
+                futures.add(executor.submit(CpuIntensiveComparison::performCpuTask));
             }
 
             // Shutdown the executor and await the completion of all tasks
@@ -57,8 +60,17 @@ public class CpuIntensiveComparison {
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
+
+        // NEW LOGIC: Aggregate the results after all tasks are done
+        long totalSum = 0;
+        for (Future<Long> future : futures) {
+            // .get() safely retrieves the result from each completed task
+            totalSum += future.get();
+        }
+
         System.out.printf("Platform Threads completed in: %d ms%n", duration);
-        System.out.println("The sum is : "+ result.get());
+        // CHANGED: Print the aggregated sum of all tasks
+        System.out.println("The total aggregated sum is : "+ totalSum);
         return duration;
     }
 
@@ -68,21 +80,32 @@ public class CpuIntensiveComparison {
      */
     private static long runWithVirtualThreads() throws InterruptedException, ExecutionException {
         long startTime = System.currentTimeMillis();
-        Future<Long> result = null;
+        // CHANGED: Use a List to store all 2000 Future objects instead of a single variable
+        List<Future<Long>> futures = new ArrayList<>();
+
         // Creates a new virtual thread for every submitted task (2000 threads)
         try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
             System.out.println("Running with Virtual Threads (Per Task Executor)...");
 
             for (int i = 0; i < NUMBER_OF_TASKS; i++) {
-                result = executor.submit(CpuIntensiveComparison::performCpuTask);
+                // CHANGED: Add the Future for *each* submitted task to the list
+                futures.add(executor.submit(CpuIntensiveComparison::performCpuTask));
             }
         } // Executor waits for all tasks to finish here
 
-
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;
+
+        // NEW LOGIC: Aggregate the results after all tasks are done
+        long totalSum = 0;
+        for (Future<Long> future : futures) {
+            // .get() safely retrieves the result from each completed task
+            totalSum += future.get();
+        }
+
         System.out.printf("Virtual Threads completed in: %d ms%n", duration);
-        System.out.println("The sum is : "+ result.get());
+        // CHANGED: Print the aggregated sum of all tasks
+        System.out.println("The total aggregated sum is : "+ totalSum);
         return duration;
     }
 
