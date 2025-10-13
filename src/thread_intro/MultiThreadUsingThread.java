@@ -1,6 +1,6 @@
 package thread_intro;
 
-class Hii extends Thread{
+class Hii implements Runnable{
 
     public void run() {
         for(int i=0;i<=20;i++){
@@ -31,8 +31,10 @@ class Hello extends Thread{
 public class MultiThreadUsingThread {
     public static void main(String[] args) {
 
-        Hii hi = new Hii();
+        Hii jobOfHi = new Hii();
         Hello hello = new Hello();
+
+        Thread hi =new Thread(jobOfHi);
 
         hi.start();
         try {

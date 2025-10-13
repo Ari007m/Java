@@ -1,12 +1,16 @@
 package thread_intro;
 
+/**
+ Two threads are running parallel .
+ Each thread notify() each others for wake it from the Wait() state.
+ */
 class Shared {
     private boolean available = false;
 
     public synchronized void produce(){
         while (available) {
             try {
-                wait();  // release lock and wait
+                wait();  //  non-runnable state where a thread voluntarily gives up its execution rights
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -18,7 +22,7 @@ class Shared {
 
     public synchronized void consume() throws InterruptedException {
         while (!available) {
-            wait();  // release lock and wait
+            wait();
         }
         System.out.println("Consumed an item");
         available = false;
