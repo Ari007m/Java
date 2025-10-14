@@ -1,4 +1,4 @@
-package thread_intro;
+package process_thread_demo;
 
 /**
  Two threads are running parallel .
@@ -32,7 +32,7 @@ class Shared {
 
 public class WaitNotifyDemo {
     public static void main(String[] args) {
-        Shared s = new Shared();
+        Shared s = new Shared(); // Same object for both threads for managing monitor lock, ensure only one thread runs at a time.
 
         Thread producer = new Thread(() -> {
             for (int i = 0; i < 3; i++) s.produce();

@@ -1,4 +1,4 @@
-package thread_intro;
+package process_thread_demo;
 
 class Hii implements Runnable{
 
