@@ -1,4 +1,4 @@
-package process_thread_demo;
+package thread_intro;
 
 public class ProcessThreadDemo {
 
