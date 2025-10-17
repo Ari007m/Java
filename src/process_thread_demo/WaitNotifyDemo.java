@@ -7,6 +7,7 @@ package process_thread_demo;
 class Shared {
     private boolean available = false;
 
+    //The Second thread which comes to access this method gets blocked until 1st thread releases lock
     public synchronized void produce(){
         while (available) {
             try {
@@ -26,7 +27,7 @@ class Shared {
         }
         System.out.println("Consumed an item");
         available = false;
-        notify();   // wake up producer
+        notify();   // wake up producer -- if it is not called the producer will wait due to both using same object for lock, due to thread scheduling The producer goes wait stage it notifies that
     }
 }
 

@@ -3,10 +3,10 @@ package process_thread_demo;
 class Hii implements Runnable{
 
     public void run() {
-        for(int i=0;i<=20;i++){
+        for(int i=0;i<=30;i++){
             System.out.println("This is Hii");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -20,7 +20,7 @@ class Hello extends Thread{
         for(int i=0;i<=20;i++){
             System.out.println("This is Hello");
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -29,7 +29,7 @@ class Hello extends Thread{
 }
 
 public class MultiThreadUsingThread {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         Hii jobOfHi = new Hii();
         Hello hello = new Hello();
@@ -37,11 +37,18 @@ public class MultiThreadUsingThread {
         Thread hi =new Thread(jobOfHi);
 
         hi.start();
+        System.out.println("Hi started");
         try {
-            Thread.sleep(500);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         hello.start();
+        System.out.println("Hi started");
+
+        hi.join();
+        hello.join();
+
+        System.out.println("Main waiting for all tasks to complete");
     }
 }
