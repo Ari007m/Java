@@ -1,10 +1,10 @@
 package process_thread_demo;
 
-class Hii implements Runnable{
+class ByRunnable implements Runnable{
 // This Class implements runnable which has single method
     public void run() {
-        for(int i=0;i<=30;i++){
-            System.out.println("This is Hii");
+        for(int i=0;i<=15;i++){
+            System.out.println("This is ByRunnable");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -14,15 +14,15 @@ class Hii implements Runnable{
     }
 }
 
-class Hello extends Thread{
+class ByExtends extends Thread{
 
-    public Hello(String s) {
-        super(s);
+    public ByExtends(String name) {
+        super(name);
     }
 
     public void run() {
-        for(int i=0;i<=20;i++){
-            System.out.println("This is Hello");
+        for(int i=0;i<=10;i++){
+            System.out.println("This is By Extending Thread Clas");
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
@@ -35,24 +35,24 @@ class Hello extends Thread{
 public class MultiThreadUsingThread {
     public static void main(String[] args) throws InterruptedException {
 
-        Hii jobOfHi = new Hii(); // Object of task which want to be executed.
-        Hello hello = new Hello("Hello-Thread");
+        ByRunnable jobOfByRunnable = new ByRunnable(); // Object of task which want to be executed.
+        ByExtends extend = new ByExtends("ByExtends-Thread");
 
-        Thread hi =new Thread(jobOfHi,"Hi-Thread"); // thread creation of the job
+        Thread runnable =new Thread(jobOfByRunnable,"ByRunnable - Thread"); // thread creation of the job
 
-        hi.start();
-        System.out.println(hi.getName() + " started");
+        runnable.start();
+        System.out.println(runnable.getName() + " started");
         try {
             Thread.sleep(250);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        hello.start();
-        System.out.println(hello.getName() + " started");
+        extend.start();
+        System.out.println(extend.getName() + " started");
 
-//        hi.interrupt(); // This interrupts the Sleep state of Hi thread
-        hi.join(); // Main thread is waiting for 'hi' thread to finish its execution
-        hello.join(); // Main thread is waiting for 'hello' thread to finish its execution
+//        runnable.interrupt(); // This interrupts the Sleep state of Hi thread
+        runnable.join(); // Main thread is waiting for 'runnable' thread to finish its execution
+        extend.join(); // Main thread is waiting for 'extend' thread to finish its execution
 
         System.out.println("Main waiting for all tasks to complete");
     }
