@@ -32,51 +32,42 @@ public class VerticalTraversal {
         if (root == null) return new ArrayList<>();
 
         Map<Integer, ArrayList<Integer>> map = new HashMap<>();
-        int minCol = 0, maxCol = 0;
-
-        // Queue for nodes
+        Queue<Integer> noOfCol = new LinkedList<>();
         Queue<Node> nodeQueue = new LinkedList<>();
-        // Queue for columns
-        Queue<Integer> colQueue = new LinkedList<>();
 
+        int max = 0, min = 0;
+
+        noOfCol.offer(0);
         nodeQueue.offer(root);
-        colQueue.offer(0);
 
-        while (!nodeQueue.isEmpty()) {
+        while(!nodeQueue.isEmpty()){
             Node node = nodeQueue.poll();
-            int col = colQueue.poll();
+            int col = noOfCol.poll();
 
-            // Create list for this column if not exists
-            if (!map.containsKey(col)) {
+            if(!map.containsKey(col)){
                 map.put(col, new ArrayList<>());
             }
 
-            // Add node value to its column (in level order)
             map.get(col).add(node.data);
+            min = Math.min(col, min);
+            max = Math.max(col, max);
 
-            // Update min and max column
-            minCol = Math.min(minCol, col);
-            maxCol = Math.max(maxCol, col);
-
-            // Push left child with col-1
-            if (node.left != null) {
+            if(node.left != null){
                 nodeQueue.offer(node.left);
-                colQueue.offer(col - 1);
+                noOfCol.offer(col - 1);
             }
 
-            // Push right child with col+1
-            if (node.right != null) {
+            if(node.right != null){
                 nodeQueue.offer(node.right);
-                colQueue.offer(col + 1);
+                noOfCol.offer(col + 1);
             }
         }
 
-        // Build result from minCol to maxCol
-        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
-        for (int col = minCol; col <= maxCol; col++) {
-            result.add(map.get(col));
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        for(int i = min; i <= max; i++){
+            res.add(map.get(i));
         }
 
-        return result;
+        return res;
     }
 }
