@@ -1,8 +1,5 @@
 package DSA.Tree;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-
 public class DiameterOfTree {
 
     /**
@@ -21,30 +18,23 @@ public class DiameterOfTree {
         System.out.println(findDiameter(root));
     }
 
+    static int res = 0;
     private static int findDiameter(Node root){
-        Queue<Node> nodeQueue = new ArrayDeque<>();
-        int size = 0;
-        if (root == null) return size;
-        nodeQueue.offer(root);
 
-        while (!nodeQueue.isEmpty()){
-            int size1 = nodeQueue.size();
-
-            for(int i = 0; i < size1; i++){
-                Node node = nodeQueue.poll();
-
-                if(node.left != null){
-                    nodeQueue.offer(node.left);
-                }
-
-                if(node.right != null){
-                    nodeQueue.offer(node.right);
-                }
-            }
-
-            size = Math.max(size1, size);
-        }
-
-        return size;
+        height(root);
+        return res;
     }
+
+    private static int height(Node root){
+        if (root == null) return 0;
+
+        int left = height(root.left);
+        int right = height(root.right);
+
+        res = Math.max(left + right, res) ;
+
+        return 1 + Math.max(left, right);
+    }
+
+
 }
