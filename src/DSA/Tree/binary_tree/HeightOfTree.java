@@ -1,4 +1,4 @@
-package DSA.Tree;
+package DSA.Tree.binary_tree;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

@@ -1,7 +1,4 @@
-package DSA.Tree;
-
-import java.util.List;
-import java.util.stream.Stream;
+package DSA.Tree.binary_tree;
 
 public class MirrorTree {
     /**

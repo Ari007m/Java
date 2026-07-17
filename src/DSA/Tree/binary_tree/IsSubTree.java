@@ -1,6 +1,4 @@
-package DSA.Tree;
-
-import java.lang.ref.WeakReference;
+package DSA.Tree.binary_tree;
 
 public class IsSubTree {
 

@@ -1,4 +1,4 @@
-package DSA.Tree;
+package DSA.Tree.binary_tree;
 
 import java.util.ArrayList;
 import java.util.Stack;

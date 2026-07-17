@@ -1,4 +1,4 @@
-package DSA.Tree;
+package DSA.Tree.binary_tree;
 
 public class hasPathSum {
 

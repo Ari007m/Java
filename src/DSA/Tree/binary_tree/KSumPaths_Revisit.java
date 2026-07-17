@@ -1,4 +1,4 @@
-package DSA.Tree;
+package DSA.Tree.binary_tree;
 
 import java.util.HashMap;
 
@@ -42,7 +42,6 @@ public class KSumPaths_Revisit {
     static void helper(Node root, int k, int runningSum, HashMap<Integer, Integer> map){
         if(root == null) return;
 
-//        if(root.data == k) count++;
         runningSum += root.data;
         count += map.getOrDefault(runningSum - k, 0);
         map.put(runningSum, map.getOrDefault(runningSum, 0) + 1);

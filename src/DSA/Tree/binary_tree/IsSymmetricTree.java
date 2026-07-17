@@ -1,6 +1,4 @@
-package DSA.Tree;
-
-import java.util.*;
+package DSA.Tree.binary_tree;
 
 public class IsSymmetricTree {
 
