@@ -4,32 +4,45 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        double w;
-        int c;
-        double nw;
+//        double w;
+//        int c;
+//        double nw;
+//
+//        Scanner s = new Scanner(System.in);
+//
+//        System.out.println("Weight conversion");
+//        System.out.println("1 : converts weight from lbs to kgs ");
+//        System.out.println("2 : converts weight from kgs to lbs ");
+//        System.out.println("Enter your choice: ");
+//        c = s.nextInt();
+//
+//        if(c == 1){
+//            System.out.println("Enter weight in lbs: ");
+//            w = s.nextInt();
+//            nw = w * 0.453592;
+//            System.out.printf("The %.2f in lbs is equal to %.2f kgs",w,nw);
+//
+//        }
+//        else{
+//            System.out.println("Enter weight in kgs: ");
+//            w = s.nextInt();
+//            nw = w / 0.453592;
+//            System.out.printf("The %f in kgs is equal to %f lbs",w,nw);
+//
+//        }
 
-        Scanner s = new Scanner(System.in);
+        String a = "hello";
+        String b = new String("hello");
 
-        System.out.println("Weight conversion");
-        System.out.println("1 : converts weight from lbs to kgs ");
-        System.out.println("2 : converts weight from kgs to lbs ");
-        System.out.println("Enter your choice: ");
-        c = s.nextInt();
+        String c = b.intern();
 
-        if(c == 1){
-            System.out.println("Enter weight in lbs: ");
-            w = s.nextInt();
-            nw = w * 0.453592;
-            System.out.printf("The %.2f in lbs is equal to %.2f kgs",w,nw);
+        System.out.println(a == b);
+        System.out.println(a == c);
 
-        }
-        else{
-            System.out.println("Enter weight in kgs: ");
-            w = s.nextInt();
-            nw = w / 0.453592;
-            System.out.printf("The %f in kgs is equal to %f lbs",w,nw);
+        Integer d = 200;
+        Integer f = 200;
 
-        }
+        System.out.println(d == f);
 
     }
 }

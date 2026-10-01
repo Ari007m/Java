@@ -1,11 +1,12 @@
 package topics.thread_intro;
 
 class Counter extends Thread{
+    Object lock = new Object();
     private int count;
 
     //The second Thread try to access this methode will be in the Blocked state until 1 st thread finishes
-    public synchronized void incrementCount() {
-        this.count = count + 1;
+    public synchronized void incrementCount(Object lock) {
+        count = count + 1;
     }
 
     public synchronized int getCount() {
@@ -19,11 +20,11 @@ public class ThreadSynchronizeExample {
 
         Thread t1 = new Thread (() -> {
             for(int i = 1;i<=1000;i++){
-                c.incrementCount();
+                c.incrementCount(c);
             }});
         Thread t2 = new Thread (() -> {
             for(int i = 1;i<=1000;i++){
-                c.incrementCount();
+                c.incrementCount(c);
             }});
 
         t1.start();
