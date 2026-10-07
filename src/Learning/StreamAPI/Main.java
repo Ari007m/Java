@@ -1,10 +1,9 @@
 package Learning.StreamAPI;
 
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -278,6 +277,81 @@ public class Main {
                 .count();
 
         System.out.println(shortCircuited);
+
+//        Q17 — reduce vs collect
+//
+//        Implement the following without Collectors.joining():
+//        Java -> Spring -> Docker -> AWS
+//
+//        Use reduce().
+//        Then explain why collect() would generally be more appropriate for building a mutable collection.
+        List<String> names = List.of(
+                "Java", "Spring", "Docker", "AWS"
+        );
+
+        String reduceOfSkills = names.stream()
+                .reduce((n, e) -> n + " -> " + e)
+                .orElse(" ");
+
+        System.out.println(reduceOfSkills);
+
+//        Q18 — Deep challenge
+//
+//        Produce the following result using one Stream pipeline: [12, 18, 20, 30]
+//
+//        Rules:
+//        1. Remove duplicates.
+//        2. Keep only numbers greater than 10.
+//        3. Sort ascending.
+//        4. Keep only the first four.
+//        5. Do not use a loop.
+
+        List<Integer> streamChallenge = List.of(
+                5, 12, 7, 12, 20, 5, 30, 18, 7, 40
+        );
+
+        List<Integer> performed = streamChallenge.stream()
+                .distinct()
+                .filter( n -> n > 10)
+                .sorted()
+                .limit(4)
+                .toList();
+
+        System.out.println(performed);
+
+//        Q19 — Collector internals
+//
+//        Requirements:
+//        - Supplier → creates an ArrayList
+//        - Accumulator → adds an integer
+//        - Combiner → combines two lists
+//        - Finisher → returns the accumulated list
+
+        List<Integer> nums = List.of(1, 2, 3, 4, 5);
+        Collector<Integer, List<Integer>, List<Integer>> collector =
+                Collector.of(
+                        ArrayList::new,
+                        List::add,
+                        (a,b) -> {
+                            a.addAll(b);
+                            return a;
+                        },
+                        Function.identity()
+                );
+
+        List<Integer> result = nums.stream()
+                        .collect(collector);
+        System.out.println(result);
+
+//        Q20 — Advanced challenge
+//        where each department maps to its highest-paid employee.
+        Map<String, Optional<Employee>> depWiseHighestPaidEmployee = employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::department,
+                        Collectors.maxBy(Comparator.comparing(Employee::salary))
+                ));
+
+        System.out.println(depWiseHighestPaidEmployee);
 
     }
 }
